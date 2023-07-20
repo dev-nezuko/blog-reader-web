@@ -1,11 +1,11 @@
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Avatar, Box, Typography } from '@mui/material';
 
-import { Container } from 'components/Container/Container';
+import { FormContainer } from 'components/FormContainer/FormContainer';
 import { SignupForm } from 'components/Forms/SignupForm/SignupForm';
 
 export const Signup = (): JSX.Element => (
-  <Container>
+  <FormContainer>
     <Box
       sx={{
         marginTop: 8,
@@ -22,5 +22,5 @@ export const Signup = (): JSX.Element => (
       </Typography>
       <SignupForm />
     </Box>
-  </Container>
+  </FormContainer>
 );

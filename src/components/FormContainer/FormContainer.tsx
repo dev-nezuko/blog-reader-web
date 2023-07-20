@@ -3,7 +3,7 @@ import MuiContainer from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-export const Container = ({ children }: PropsWithChildren): JSX.Element => {
+export const FormContainer = ({ children }: PropsWithChildren): JSX.Element => {
   const defaultTheme = createTheme();
 
   return (

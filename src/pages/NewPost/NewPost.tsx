@@ -1,14 +1,14 @@
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import { Avatar, Box, Typography } from '@mui/material';
 
-import { Container } from 'components/Container/Container';
+import { FormContainer } from 'components/FormContainer/FormContainer';
 import { PostForm } from 'components/Forms/PostForm/PostForm';
 import { Header } from 'components/Header/Header';
 
 export const NewPost = (): JSX.Element => (
   <>
     <Header />
-    <Container>
+    <FormContainer>
       <Box
         sx={{
           marginTop: 8,
@@ -25,6 +25,6 @@ export const NewPost = (): JSX.Element => (
         </Typography>
         <PostForm />
       </Box>
-    </Container>
+    </FormContainer>
   </>
 );
