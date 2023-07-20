@@ -4,7 +4,7 @@ import { Avatar, Box, Typography } from '@mui/material';
 import { Container } from 'components/Container/Container';
 import { SigninForm } from 'components/Forms/SigninForm/SigninForm';
 
-export const SignIn = (): JSX.Element => (
+export const Signin = (): JSX.Element => (
   <Container>
     <Box
       sx={{

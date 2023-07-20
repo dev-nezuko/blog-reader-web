@@ -4,6 +4,7 @@ import { Form, Formik } from 'formik';
 import { SigninPayload } from 'types/signinPayload';
 
 import { TextInput } from 'components/TextInput/TextInput';
+import { routes } from 'constants/routes';
 
 export const SigninForm = (): JSX.Element => {
   const handleSubmit = useCallback((values: SigninPayload) => {
@@ -34,7 +35,7 @@ export const SigninForm = (): JSX.Element => {
           </Form>
         )}
       </Formik>
-      <Link href="#" variant="body2" underline="hover">
+      <Link href={routes.signup} variant="body2" underline="hover">
         Don't have an account? Sign Up
       </Link>
     </>
