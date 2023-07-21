@@ -1,15 +1,32 @@
-import { useCallback } from 'react';
+import { useCallback, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, Checkbox, FormControlLabel, Link } from '@mui/material';
-import { Form, Formik } from 'formik';
-import { SigninPayload } from 'types/signinPayload';
+import { AuthContext } from 'contexts/AuthContext';
+import { Form, Formik, FormikHelpers } from 'formik';
+import Cookies from 'js-cookie';
+import { SigninPayload } from 'types/signin';
 
 import { TextInput } from 'components/TextInput/TextInput';
 import { routes } from 'constants/routes';
+import { login } from 'services/authService';
 
 export const SigninForm = (): JSX.Element => {
-  const handleSubmit = useCallback((values: SigninPayload) => {
-    console.log(values);
-  }, []);
+  const { setIsAuthenticated } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const handleSubmit = useCallback(
+    async (values: SigninPayload, { setFieldError }: FormikHelpers<SigninPayload>) => {
+      await login(values)
+        .then((response) => {
+          Cookies.set('authtoken', response.data.payload.authtoken);
+          setIsAuthenticated(true);
+          navigate(routes.posts);
+        })
+        .catch((error) => {
+          setFieldError('password', error);
+        });
+    },
+    [navigate, setIsAuthenticated]
+  );
 
   return (
     <>

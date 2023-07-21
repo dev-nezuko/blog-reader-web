@@ -3,12 +3,10 @@ import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import { PostType } from 'types/post';
 
 interface Props {
-  post: {
-    content: string;
-    title: string;
-  };
+  post: PostType;
 }
 
 export const Post = ({ post }: Props): JSX.Element => (
@@ -18,6 +16,9 @@ export const Post = ({ post }: Props): JSX.Element => (
         <CardContent sx={{ flex: 1 }}>
           <Typography component="h2" variant="h5">
             {post.title}
+          </Typography>
+          <Typography variant="subtitle1" color="text.secondary">
+            {new Date(post.createdAt).toLocaleString()}
           </Typography>
           <Typography variant="subtitle1" paragraph>
             {post.content}

@@ -1,29 +1,30 @@
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Button, Container, Grid } from '@mui/material';
+import { PostType } from 'types/post';
 
 import { Header } from 'components/Header/Header';
 import { Post } from 'components/Post/Post';
 import { routes } from 'constants/routes';
-
-const featuredPosts = [
-  {
-    title: 'Featured post',
-    date: 'Nov 12',
-    content: 'This is a wider card with supporting text below as a natural lead-in to additional content.',
-    image: 'https://source.unsplash.com/random?wallpapers',
-    imageLabel: 'Image Text',
-  },
-  {
-    title: 'Post title',
-    date: 'Nov 11',
-    content: 'This is a wider card with supporting text below as a natural lead-in to additional content.',
-    image: 'https://source.unsplash.com/random?wallpapers',
-    imageLabel: 'Image Text',
-  },
-];
+import { getPosts } from 'services/postService';
 
 export const Posts = (): JSX.Element => {
   const navigate = useNavigate();
+  const [posts, setPosts] = useState<PostType[]>([]);
+
+  useEffect(() => {
+    const fetchPosts = async (): Promise<void> => {
+      try {
+        const response = await getPosts();
+
+        setPosts(response.data.payload);
+      } catch (error) {
+        throw new Error('Cannot get posts');
+      }
+    };
+
+    fetchPosts();
+  }, []);
 
   return (
     <>
@@ -41,7 +42,7 @@ export const Posts = (): JSX.Element => {
             Create New Post
           </Button>
           <Grid container spacing={4} sx={{ mt: 3 }}>
-            {featuredPosts.map((post) => (
+            {posts.map((post) => (
               <Post key={post.title} post={post} />
             ))}
           </Grid>

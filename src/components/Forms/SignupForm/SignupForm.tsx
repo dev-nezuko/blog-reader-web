@@ -1,15 +1,27 @@
 import { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, Checkbox, FormControlLabel, Link } from '@mui/material';
-import { Form, Formik } from 'formik';
+import { Form, Formik, FormikHelpers } from 'formik';
 import { SignupPayload } from 'types/signupPayload';
 
 import { TextInput } from 'components/TextInput/TextInput';
 import { routes } from 'constants/routes';
+import { signup } from 'services/authService';
 
 export const SignupForm = (): JSX.Element => {
-  const handleSubmit = useCallback((values: SignupPayload) => {
-    console.log(values);
-  }, []);
+  const navigate = useNavigate();
+  const handleSubmit = useCallback(
+    async (values: SignupPayload, { setFieldError }: FormikHelpers<SignupPayload>) => {
+      signup(values)
+        .then(() => {
+          navigate(routes.signin);
+        })
+        .catch((error) => {
+          setFieldError('password', error);
+        });
+    },
+    [navigate]
+  );
 
   return (
     <>

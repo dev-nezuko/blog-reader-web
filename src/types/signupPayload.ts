@@ -1,4 +1,4 @@
-import { SigninPayload } from './signinPayload';
+import { SigninPayload } from './signin';
 
 export type SignupPayload = {
   name: string;

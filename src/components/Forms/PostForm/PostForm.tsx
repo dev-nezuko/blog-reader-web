@@ -1,14 +1,27 @@
 import { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
-import { Form, Formik } from 'formik';
+import { Form, Formik, FormikHelpers } from 'formik';
 import { NewPostPayload } from 'types/newPostPayload';
 
 import { TextInput } from 'components/TextInput/TextInput';
+import { routes } from 'constants/routes';
+import { createPost } from 'services/postService';
 
 export const PostForm = (): JSX.Element => {
-  const handleSubmit = useCallback((values: NewPostPayload) => {
-    console.log(values);
-  }, []);
+  const navigate = useNavigate();
+  const handleSubmit = useCallback(
+    async (values: NewPostPayload, { setFieldError }: FormikHelpers<NewPostPayload>) => {
+      createPost(values)
+        .then(() => {
+          navigate(routes.posts);
+        })
+        .catch((error) => {
+          setFieldError('content', error);
+        });
+    },
+    [navigate]
+  );
 
   return (
     <Formik initialValues={{ title: '', content: '' }} onSubmit={handleSubmit}>
