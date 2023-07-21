@@ -12,10 +12,6 @@ const AuthProvider = ({ children }: PropsWithChildren): JSX.Element => {
   );
 
   useEffect(() => {
-    setIsAuthenticated(JSON.parse(window.localStorage.getItem('isAuthenticated') || 'false'));
-  }, []);
-
-  useEffect(() => {
     window.localStorage.setItem('isAuthenticated', JSON.stringify(isAuthenticated));
   }, [isAuthenticated]);
 

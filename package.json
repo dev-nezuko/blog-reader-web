@@ -31,7 +31,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --silent",
     "test:silent": "yarn test --silent --maxWorkers=50%",
     "eject": "react-scripts eject",
     "lint": "eslint src/",
@@ -76,7 +76,8 @@
       "/node_modules/(?!axios)/",
       "src/App.tsx",
       "src/reportWebVitals.ts",
-      "src/index.tsx"
+      "src/index.tsx",
+      "src/components/AppRoutes/*"
     ]
   }
 }
