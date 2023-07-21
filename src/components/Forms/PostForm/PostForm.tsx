@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { Form, Formik, FormikHelpers } from 'formik';
+import { postSchema } from 'schemas/postSchema';
 import { NewPostPayload } from 'types/newPostPayload';
 
 import { TextInput } from 'components/TextInput/TextInput';
@@ -24,11 +25,11 @@ export const PostForm = (): JSX.Element => {
   );
 
   return (
-    <Formik initialValues={{ title: '', content: '' }} onSubmit={handleSubmit}>
+    <Formik initialValues={{ title: '', content: '' }} onSubmit={handleSubmit} validationSchema={postSchema}>
       {() => (
         <Form>
-          <TextInput required fullWidth name="title" label="Title" type="title" autoComplete="title" />
-          <TextInput name="content" label="Content" autoComplete="content" multiline required fullWidth minRows={4} />
+          <TextInput fullWidth name="title" label="Title" type="title" autoComplete="title" />
+          <TextInput name="content" label="Content" autoComplete="content" multiline fullWidth minRows={4} />
           <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
             Create Post
           </Button>

@@ -1,7 +1,8 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Checkbox, FormControlLabel, Link } from '@mui/material';
+import { Button, Link } from '@mui/material';
 import { Form, Formik, FormikHelpers } from 'formik';
+import { signupSchema } from 'schemas/signupSchema';
 import { SignupPayload } from 'types/signupPayload';
 
 import { TextInput } from 'components/TextInput/TextInput';
@@ -25,23 +26,16 @@ export const SignupForm = (): JSX.Element => {
 
   return (
     <>
-      <Formik initialValues={{ name: '', email: '', password: '' }} onSubmit={handleSubmit}>
+      <Formik
+        initialValues={{ name: '', email: '', password: '' }}
+        onSubmit={handleSubmit}
+        validationSchema={signupSchema}
+      >
         {() => (
           <Form>
-            <TextInput required fullWidth name="name" label="Full Name" autoComplete="user-name" />
-            <TextInput required fullWidth name="email" label="Email Address" type="email" autoComplete="email" />
-            <TextInput
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox name="remember" value="remember" color="primary" />}
-              label="Remember me"
-            />
+            <TextInput fullWidth name="name" label="Full Name" autoComplete="user-name" />
+            <TextInput fullWidth name="email" label="Email Address" type="email" autoComplete="email" />
+            <TextInput fullWidth name="password" label="Password" type="password" autoComplete="current-password" />
             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               Sign Up
             </Button>

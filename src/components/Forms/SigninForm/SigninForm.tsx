@@ -1,9 +1,10 @@
 import { useCallback, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Checkbox, FormControlLabel, Link } from '@mui/material';
+import { Button, Link } from '@mui/material';
 import { AuthContext } from 'contexts/AuthContext';
 import { Form, Formik, FormikHelpers } from 'formik';
 import Cookies from 'js-cookie';
+import { signinSchema } from 'schemas/signinSchema';
 import { SigninPayload } from 'types/signin';
 
 import { TextInput } from 'components/TextInput/TextInput';
@@ -30,22 +31,11 @@ export const SigninForm = (): JSX.Element => {
 
   return (
     <>
-      <Formik initialValues={{ email: '', password: '' }} onSubmit={handleSubmit}>
+      <Formik initialValues={{ email: '', password: '' }} onSubmit={handleSubmit} validationSchema={signinSchema}>
         {() => (
           <Form>
-            <TextInput required fullWidth name="email" label="Email Address" type="email" autoComplete="email" />
-            <TextInput
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox name="remember" value="remember" color="primary" />}
-              label="Remember me"
-            />
+            <TextInput fullWidth name="email" label="Email Address" type="email" autoComplete="email" />
+            <TextInput fullWidth name="password" label="Password" type="password" autoComplete="current-password" />
             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               Sign In
             </Button>
