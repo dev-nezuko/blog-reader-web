@@ -18,7 +18,7 @@ export const SignupForm = (): JSX.Element => {
           navigate(routes.signin);
         })
         .catch((error) => {
-          setFieldError('password', error);
+          setFieldError('password', error.response.data.message);
         });
     },
     [navigate]

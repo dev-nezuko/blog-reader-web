@@ -18,7 +18,7 @@ export const PostForm = (): JSX.Element => {
           navigate(routes.posts);
         })
         .catch((error) => {
-          setFieldError('content', error);
+          setFieldError('content', error.response.data.message);
         });
     },
     [navigate]

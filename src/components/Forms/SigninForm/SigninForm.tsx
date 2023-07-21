@@ -23,7 +23,7 @@ export const SigninForm = (): JSX.Element => {
           navigate(routes.posts);
         })
         .catch((error) => {
-          setFieldError('password', error);
+          setFieldError('password', error.response.data.message);
         });
     },
     [navigate, setIsAuthenticated]
