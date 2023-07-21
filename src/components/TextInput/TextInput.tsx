@@ -1,12 +1,11 @@
 import { TextField, TextFieldProps } from '@mui/material';
-import { ErrorMessage, useField, useFormikContext } from 'formik';
+import { ErrorMessage, useField } from 'formik';
 
 type TextInputProps = TextFieldProps & {
   name: string;
 };
 export const TextInput = ({ name, ...props }: TextInputProps): JSX.Element => {
-  const [, meta] = useField(name);
-  const { handleChange } = useFormikContext();
+  const [field, meta] = useField(name);
 
   return (
     <>
@@ -14,10 +13,9 @@ export const TextInput = ({ name, ...props }: TextInputProps): JSX.Element => {
         margin="normal"
         fullWidth
         id={name}
-        name={name}
-        {...{ ...meta, error: !!meta.error }}
+        {...field}
+        error={Boolean(meta.touched && meta.error)}
         {...props}
-        onChange={handleChange}
       />
       <ErrorMessage className="error-message" component="span" name={name} />
     </>

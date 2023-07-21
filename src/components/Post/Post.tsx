@@ -1,5 +1,4 @@
 import Card from '@mui/material/Card';
-import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -11,7 +10,7 @@ interface Props {
 
 export const Post = ({ post }: Props): JSX.Element => (
   <Grid item xs={12} md={6}>
-    <CardActionArea>
+    <article>
       <Card sx={{ display: 'flex' }}>
         <CardContent sx={{ flex: 1 }}>
           <Typography component="h2" variant="h5">
@@ -25,6 +24,6 @@ export const Post = ({ post }: Props): JSX.Element => (
           </Typography>
         </CardContent>
       </Card>
-    </CardActionArea>
+    </article>
   </Grid>
 );

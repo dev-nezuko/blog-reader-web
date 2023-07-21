@@ -1,55 +1,33 @@
-import AdbIcon from '@mui/icons-material/Adb';
-import { AppBar, Box, Container, Link, Toolbar, Typography } from '@mui/material';
+import { useContext } from 'react';
+import { AppBar, Button, Container, Toolbar, Typography } from '@mui/material';
+import { AuthContext } from 'contexts/AuthContext';
+import Cookies from 'js-cookie';
+export const Header = (): JSX.Element => {
+  const { setIsAuthenticated } = useContext(AuthContext);
 
-import { routes } from 'constants/routes';
-
-export const Header = (): JSX.Element => (
-  <AppBar position="static">
-    <Container maxWidth="xl">
-      <Toolbar disableGutters>
-        <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-        <Typography
-          variant="h6"
-          noWrap
-          component="a"
-          href="/"
-          sx={{
-            mr: 2,
-            display: { xs: 'none', md: 'flex' },
-            fontFamily: 'monospace',
-            fontWeight: 700,
-            letterSpacing: '.3rem',
-            color: 'inherit',
-            textDecoration: 'none',
-          }}
-        >
-          LOGO
-        </Typography>
-        <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-        <Typography
-          variant="h5"
-          noWrap
-          component="a"
-          href=""
-          sx={{
-            mr: 2,
-            display: { xs: 'flex', md: 'none' },
-            flexGrow: 1,
-            fontFamily: 'monospace',
-            fontWeight: 700,
-            letterSpacing: '.3rem',
-            color: 'inherit',
-            textDecoration: 'none',
-          }}
-        >
-          LOGO
-        </Typography>
-        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-          <Link href={routes.posts} sx={{ my: 2, color: 'white', display: 'block' }}>
-            Posts
-          </Link>
-        </Box>
-      </Toolbar>
-    </Container>
-  </AppBar>
-);
+  return (
+    <AppBar position="static" sx={{ bgcolor: '#263e47', boxShadow: 'none' }}>
+      <Container>
+        <Toolbar disableGutters>
+          <Typography
+            component="a"
+            href="/posts"
+            variant="h6"
+            sx={{ flexGrow: 1, color: 'inherit', textDecoration: 'none' }}
+          >
+            Fieldnotes
+          </Typography>
+          <Button
+            color="inherit"
+            onClick={() => {
+              Cookies.remove('authtoken');
+              setIsAuthenticated(false);
+            }}
+          >
+            Sign out
+          </Button>
+        </Toolbar>
+      </Container>
+    </AppBar>
+  );
+};

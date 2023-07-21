@@ -13,12 +13,15 @@ export const PostForm = (): JSX.Element => {
   const navigate = useNavigate();
   const handleSubmit = useCallback(
     async (values: NewPostPayload, { setFieldError }: FormikHelpers<NewPostPayload>) => {
-      createPost(values)
+      await createPost(values)
         .then(() => {
           navigate(routes.posts);
         })
         .catch((error) => {
-          setFieldError('content', error.response.data.message);
+          setFieldError(
+            'content',
+            error?.response?.data?.message || 'Unable to complete the request. Please try again.'
+          );
         });
     },
     [navigate]
@@ -26,11 +29,11 @@ export const PostForm = (): JSX.Element => {
 
   return (
     <Formik initialValues={{ title: '', content: '' }} onSubmit={handleSubmit} validationSchema={postSchema}>
-      {() => (
+      {({ isSubmitting }) => (
         <Form>
           <TextInput fullWidth name="title" label="Title" type="title" autoComplete="title" />
           <TextInput name="content" label="Content" autoComplete="content" multiline fullWidth minRows={4} />
-          <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+          <Button type="submit" disabled={isSubmitting} fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
             Create Post
           </Button>
         </Form>

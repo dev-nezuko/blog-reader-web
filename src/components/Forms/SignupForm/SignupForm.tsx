@@ -13,12 +13,15 @@ export const SignupForm = (): JSX.Element => {
   const navigate = useNavigate();
   const handleSubmit = useCallback(
     async (values: SignupPayload, { setFieldError }: FormikHelpers<SignupPayload>) => {
-      signup(values)
+      await signup(values)
         .then(() => {
           navigate(routes.signin);
         })
         .catch((error) => {
-          setFieldError('password', error.response.data.message);
+          setFieldError(
+            'password',
+            error?.response?.data?.message || 'Unable to complete the request. Please try again.'
+          );
         });
     },
     [navigate]
@@ -31,12 +34,12 @@ export const SignupForm = (): JSX.Element => {
         onSubmit={handleSubmit}
         validationSchema={signupSchema}
       >
-        {() => (
+        {({ isSubmitting }) => (
           <Form>
             <TextInput fullWidth name="name" label="Full Name" autoComplete="user-name" />
             <TextInput fullWidth name="email" label="Email Address" type="email" autoComplete="email" />
             <TextInput fullWidth name="password" label="Password" type="password" autoComplete="current-password" />
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+            <Button type="submit" disabled={isSubmitting} fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               Sign Up
             </Button>
           </Form>
