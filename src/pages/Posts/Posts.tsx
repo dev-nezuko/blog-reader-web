@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Button, Container, Grid } from '@mui/material';
+import Cookies from 'js-cookie';
 import { PostType } from 'types/post';
 
 import { Header } from 'components/Header/Header';
@@ -15,7 +16,7 @@ export const Posts = (): JSX.Element => {
   useEffect(() => {
     const fetchPosts = async (): Promise<void> => {
       try {
-        const response = await getPosts();
+        const response = await getPosts(Cookies.get('authtoken') as string);
 
         setPosts(response.data.payload);
       } catch (error) {

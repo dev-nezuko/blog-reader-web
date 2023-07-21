@@ -8,8 +8,8 @@ export const postApi = {
   posts: '/posts',
 };
 
-export function getPosts(): Promise<AxiosResponse<{ payload: PostType[] }>> {
-  return baseService.get(postApi.posts);
+export function getPosts(authtoken: string): Promise<AxiosResponse<{ payload: PostType[] }>> {
+  return baseService.get(postApi.posts, { headers: { authtoken } });
 }
 
 export function createPost(values: NewPostPayload): Promise<AxiosResponse<void>> {
